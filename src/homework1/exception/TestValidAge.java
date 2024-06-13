@@ -1,4 +1,4 @@
-package homework1;
+package homework1.exception;
 
 public class TestValidAge {
     public static void validateAge(int age){
@@ -10,7 +10,11 @@ public class TestValidAge {
     }
 
     public static void main(String[] args) {
-        Exception exception = new Exception();
-        System.out.println();
+       try{
+           TestValidAge.validateAge(15);
+           TestValidAge.validateAge(155);
+       }catch (InvalidAgeException e){
+           System.out.println("Error : "+e.getMessage());
+       }
     }
 }

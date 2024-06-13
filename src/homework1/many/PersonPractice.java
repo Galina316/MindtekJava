@@ -21,10 +21,27 @@ Count the number of unique countries in the list of addresses.
          */
 
         List<Person> olderThan30=persons.stream()
-               // .flatMap(List::streams)
                 .filter(x->x.getAge()>30 )
-               // .flatMap(x->(List<String>x.getName()))
                 .collect(Collectors.toList());
+        System.out.println("People older than 30 yo: "+olderThan30);
+
+        List<String> names = persons.stream()
+                .map(Person::getName)
+                .collect(Collectors.toList());
+        System.out.println("Names of all people: "+names);
+
+        List<String>cities = persons.stream()
+                .flatMap(x->x.getAddresses().stream())
+                .map(Address::getCity)
+                .collect(Collectors.toList());
+        System.out.println("List of cities: "+cities);
+
+        int uniqueCountries = (int) persons.stream()
+                .flatMap(x->x.getAddresses().stream())
+                .map(Address::getCountry)
+                .distinct()
+                .count();
+        System.out.println("Number of unique countries: "+uniqueCountries);
 
 
     }

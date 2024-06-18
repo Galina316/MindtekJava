@@ -17,6 +17,12 @@ public class IntroCollections {
         System.out.println(stack.peek());
         stack.pop();
         System.out.println(stack);
+        stack.isEmpty();
+        System.out.println(stack);
+
+
+        Stack<String> words = new Stack<>();
+        if(!words.isEmpty())words.pop();
 
 
 

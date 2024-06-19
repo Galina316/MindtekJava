@@ -2,6 +2,7 @@ package moviesapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -22,14 +23,87 @@ import java.util.stream.Collectors;
  */
 
 public class Website {
+
+
+
+
     public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        List<Movie>movies=new ArrayList<>();
+
+        while(true){
+            System.out.println("Search by: \n 1 Genre \n 2 Director\n 3 Year\n 4 For children");
+            System.out.println("Enter 5 for Exit");
+            int choice = in.nextInt();
+
+
+            switch(choice){
+                case 1:
+                    System.out.println("Which genre? ");
+                    String genre = in.nextLine();
+                    in.nextLine();
+                    searchByGenre(genre);
+                    print(Database);
+                    break;
+                case 2:
+                    System.out.print("Which director? ");
+                    String director = in.nextLine();
+                    in.nextLine();
+                    searchByDirector( director);
+                    break;
+                case 3:
+                    System.out.print("Which year? ");
+                    int year = in.nextInt();
+                    in.nextLine();
+                    in.nextLine();
+                    searchByYear(year,year);
+                    break;
+                case 4:
+                    System.out.println("Movies suitable for children:");
+                    in.nextLine();
+                    searchForChildren(movies);
+                    break;
+                case 5:
+                    System.out.println("Exiting program...");
+                    in.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      // for(Movie m : Database.provide()) System.out.println(m);
      // List<Movie> movies = searchByGenre("Crime");
        // List<Movie> movies = searchByDirector("Nolan");
-        List<Movie> movies = searchByYear(2000,2015);
+       // List<Movie> movies = searchByYear(2000,2015);
 
-      print(movies);
+      //print(movies);
     }
+
+
+        private static void searchForChildren(List<Movie> movie){
+
+            Database.provide().stream().filter(Movie::isForChildren).collect(Collectors.toList());
+
+        }
+
 
     private static List<Movie> searchByYear(int year1, int year2){
         List<Movie>list= new ArrayList<>();

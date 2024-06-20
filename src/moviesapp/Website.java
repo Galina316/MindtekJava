@@ -44,7 +44,7 @@ public class Website {
                     String genre = in.nextLine();
                     in.nextLine();
                     searchByGenre(genre);
-                    print(Database);
+
                     break;
                 case 2:
                     System.out.print("Which director? ");

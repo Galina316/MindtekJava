@@ -1,6 +1,7 @@
 package moviesapp;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -41,28 +42,32 @@ public class Website {
             switch(choice){
                 case 1:
                     System.out.println("Which genre? ");
-                    String genre = in.nextLine();
+                    String s = in.next();
                     in.nextLine();
-                    searchByGenre(genre);
+                    movies = searchByGenre(s);
+                    print(movies);
+
 
                     break;
                 case 2:
                     System.out.print("Which director? ");
-                    String director = in.nextLine();
+                    String director = in.next();
                     in.nextLine();
-                    searchByDirector( director);
+                    movies=searchByDirector( director);
+                    print(movies);
                     break;
                 case 3:
-                    System.out.print("Which year? ");
-                    int year = in.nextInt();
+                    System.out.print("What years ? From ... To ....");
+                    int year1 = in.nextInt(),year2 = in.nextInt();
                     in.nextLine();
-                    in.nextLine();
-                    searchByYear(year,year);
+                    movies=searchByYear(year1,year2);
+                    print(movies);
                     break;
                 case 4:
                     System.out.println("Movies suitable for children:");
                     in.nextLine();
-                    searchForChildren(movies);
+                    movies=searchForChildren(movies);
+                    print(movies);
                     break;
                 case 5:
                     System.out.println("Exiting program...");
@@ -98,30 +103,28 @@ public class Website {
     }
 
 
-        private static void searchForChildren(List<Movie> movie){
+        private static List<Movie> searchForChildren(List<Movie> movie){
 
-            Database.provide().stream().filter(Movie::isForChildren).collect(Collectors.toList());
-
-        }
-
+           return Database.provide().stream().filter(Movie::isForChildren).collect(Collectors.toList());
+    }
 
     private static List<Movie> searchByYear(int year1, int year2){
-        List<Movie>list= new ArrayList<>();
-        for(Movie m : Database.provide()) {
-            if (m.getReleaseYear() >= 2000 && m.getReleaseYear() <= 2015) ;
-            list.add(m);
-            return list;
-        }
-        return null;
+//        List<Movie>list= new ArrayList<>();
+//        for(Movie m : Database.provide()) {
+//            if (m.getReleaseYear() >= 1970 && m.getReleaseYear() <= 2024) ;
+//            list.add(m);
+//            return list;
+//        }
+        return Database.provide().stream().filter(m -> m.getReleaseYear()>=year1 && m.getReleaseYear()<=year2).collect(Collectors.toList());
 
     }
 
     private static List<Movie> searchByDirector(String director ) {
-       // return Database.provide().stream().filter(d->d.getDirector().equalsIgnoreCase(director)).collect(Collectors.toList());
-List<Movie> list = new ArrayList<>();
-for(Movie m: Database.provide())if(m.getDirector().length()>=3 && m.getDirector()
-        .contains(director))list.add(m);
-return list;
+        return Database.provide().stream().filter(d->d.getDirector().equalsIgnoreCase(director)).collect(Collectors.toList());
+//List<Movie> list = new ArrayList<>();
+//for(Movie m: Database.provide())if(m.getDirector().length()>=3 && m.getDirector()
+//        .contains(director))list.add(m);
+//return list;
     }
 
     private static void print(List<Movie>movies){

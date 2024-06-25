@@ -37,5 +37,15 @@ public class MapIntro {
         days.putIfAbsent(12,"twelve");
         System.out.println(days);
 
+        //iterate through map
+        for(Map.Entry<Integer,String> pair:days.entrySet()){
+            System.out.println(pair.getKey());
+            System.out.println(pair.getValue());
+            System.out.println("===========");
+        }
+        System.out.println("==========");
+        days.forEach((a,b)->System.out.println(a +" "+b));
+        days.forEach((k,v)-> System.out.println(k+ "-> "+v));
+
     }
 }

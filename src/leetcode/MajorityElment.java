@@ -21,7 +21,7 @@ public class MajorityElment {
 
         return majorityElement;
     }
-    public static int majorityElement1(int[] nums) { /// faster way
+    public static int majorityElement1(int[] nums) { /// faster way Moor's formula
         int candidate = 0;
         int count = 0;
         for (int num : nums) {

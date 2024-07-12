@@ -10,29 +10,28 @@ public class CommonChars {
     //.commonChars("Bunny", "Sun");  returns "un";
     //.commonChars("Hot", "Cold");  returns "o";
 
-    public static String getCommonChar(String str1,String str2){
-        StringBuilder common = new StringBuilder();
-        String r = "";
+    public static String getCommonChar(String str1, String str2) {
+            // Convert both strings to lowercase to ensure case-insensitive comparison
+            str1 = str1.toLowerCase();
+            str2 = str2.toLowerCase();
 
-        for(int i =0; i<str1.length();i++ ){
-            char c = str1.charAt(i);
-            for(int j = 0 ;j<str2.length();j++){
-                char b =str2.charAt(j);
-                if(c==b){
-                    c++;
-                    common.append(c);
-
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < str1.length(); i++) {
+                char c = str1.charAt(i);
+                int index = str2.indexOf(c);
+                if (index >= 0) {
+                    result.append(c);
+                    str2 = str2.substring(0, index) + str2.substring(index + 1);
                 }
-
-
             }
-        } return common.toString();
+
+            return result.toString();
+        }
+
+        public static void main(String[] args) {
+            System.out.println(CommonChars.getCommonChar("Hot", "Cold"));
+        }
+
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(CommonChars.getCommonChar("Code","Mode"));
-    }
-
-
-}
